@@ -1,0 +1,4 @@
+interface:
+  display_name: "合肥工业大学宣城校区PPT制作"
+  short_description: "生成合工大宣城校区风格课堂汇报 PPT 的制作流程"
+  default_prompt: "Use $hfut-xuancheng-ppt-maker to create a Hefei University of Technology Xuancheng Campus style classroom presentation."
