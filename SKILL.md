@@ -1,65 +1,169 @@
 ---
 name: hfut-xuancheng-ppt-maker
-description: Create or revise Hefei University of Technology Xuancheng Campus style classroom presentation decks from Chinese requests, screenshots, source PPTs, course topics, or memory notes. Use when the user asks for 合肥工业大学/合工大/宣城校区 PPT 制作, course reports, classroom presentations, 6-8 minute talks, HFUT red-white style templates, slide scripts, or adapting an old PPT into a polished lecture/report deck.
+description: Create, revise, or restyle editable Hefei University of Technology and Xuancheng Campus PPTX decks by selecting exactly three complementary templates from the bundled HFUT template bank, extracting suitable source slides, and fusing them into one coherent visual system. Use for 合肥工业大学/合工大/宣城校区 PPT 制作, 课堂汇报, 课程展示, 论文答辩, 项目汇报, 研究报告, old-PPT redesign, seasonal campus decks, speaker notes, or requests to combine several HFUT templates without producing a visibly stitched deck.
 ---
 
-# 合肥工业大学宣城校区 PPT 制作
+# 合工大三模板融合 PPT 制作
 
-用于制作或改造合肥工业大学宣城校区风格的课堂汇报 PPT。目标是生成可直接演讲使用的 PPTX/演示文稿，而不是答辩模板堆砌或空泛美化。
+制作可编辑、可直接演讲的合肥工业大学或宣城校区风格 PPTX。每次新建或大改 PPT 时，先从内置模板库选择三套互补模板，再按“一个视觉锚点 + 两个版式供体”的规则融合。
 
-## 快速流程
+## 必须遵守
 
-1. 读取用户给的题目、截图、原始 PPT、身份信息、课程要求和演讲时长。
-2. 明确输出：默认做课堂演讲版 PPT；如果用户需要，另配逐页演讲稿或视频脚本。
-3. 提炼主题结构，按 6-8 分钟控制在约 12-15 页；用户指定页数时优先服从。
-4. 套用合工大/宣城校区风格：红白为主，金色点缀，保留校徽、校名、姓名、专业/班级等身份信息。
-5. 联网补充资料和图片时，优先使用权威来源，图片必须与主题高度相关且不重复。
-6. 制作 PPT 后必须渲染或截图检查每页：文字不压图、不溢出、不重叠，图片无明显重复痕迹。
-7. 交付 PPT 文件，并简要说明页数、主题、是否附带演讲稿和检查结果。
+- 使用内置模板真实抽页，不凭空仿制合工大校徽、校名或模板装饰。
+- 每个任务选择恰好三套模板，但不平均混用。建议视觉影响比例为 `60% / 25% / 15%`。
+- 最终 PPT 只能有一套字体、色彩、页眉页脚、标题、页码和校徽规则。
+- 主模板决定视觉系统；另外两套只提供构图、信息图、图表、图片裁切或季节气质。
+- 不交付仍含“输入标题”“单击此处”等模板占位文字的页面。
+- 不把不同模板的页眉、页脚、校徽版本和颜色原样并列保留。
+- 必须渲染并检查全部页面后再交付。
 
-详细规范见 [references/ppt-production-standard.md](references/ppt-production-standard.md)。
+详细融合规则见 [references/fusion-protocol.md](references/fusion-protocol.md)，模板风格说明见 [references/template-catalog.md](references/template-catalog.md)。
 
-## 输入信息
+## 工作目录
 
-优先从用户材料中提取：
+将中间文件放在当前线程的演示文稿工作区：
 
-- 姓名、学校、学院、专业、班级、学号或汇报人。
-- 课程名称、章节、主题、老师要求或评分点。
-- 原始 PPT、截图、网页链接、图片素材或模板。
-- 演讲时长、页数要求、是否课堂汇报/答辩/小组展示。
-- 是否需要联网检索资料和图片。
+```text
+outputs/<thread-id>/presentations/<task-slug>/
+  template-selection.json
+  fusion-starter.pptx
+  source-notes.txt
+  claim-spine.txt
+  design-system.txt
+  preview/
+  qa/
+  output/
+```
 
-信息缺失但不影响制作时，使用占位符或合理默认值；不要为了姓名/班级等小字段阻塞整体制作。
+只把最终 PPTX、用户明确要求的讲稿或视频放入 `output/`。
 
-## 制作原则
+## 制作流程
 
-- 课堂汇报优先，不默认做毕业答辩风。
-- 内容不能太少；每页应有明确讲述点。
-- 图片和文字不能重叠，文字必须清晰可读。
-- 不要多次使用同一张图片；同类图片也要避免明显重复。
-- 图片优先选历史图片、地图、人物、文献截图、场景图、课程相关网页截图。
-- 旧 PPT 改造时保留原始结构的有用部分，补足不足内容，统一版式。
-- 首页必须体现学校/课程/主题/汇报人，不要只有装饰图。
-- 结尾页可用“感谢聆听”“请批评指正”等合工大红色系收束。
+### 1. 读取需求
 
-## 工具选择
+优先提取：
 
-- 制作 `.pptx` 时优先使用可渲染检查的演示文稿工具或 Presentations 插件能力。
-- 若用户指定 Canva、网页 PPT 或单 HTML PPT，可使用对应工具，但仍遵守本 Skill 的内容与视觉规范。
-- 需要联网检索资料时，必须打开网页核对来源；优先学校官网、人民网、求是网、新华社、政府/机构官网、课程指定材料。
-- 使用用户提供的模板或 logo 时，优先复用原始素材，不凭空改动校徽比例和校名。
+- 主题、课程、受众、演讲时长、页数和汇报类型。
+- 姓名、学院、专业、班级、学号、小组和日期。
+- 用户提供的原 PPT、截图、资料、图片和评分要求。
+- 是否偏好简洁、沉稳、深色、数据型、校园摄影、秋季或冬季。
 
-## 质量检查
+信息缺失但不影响制作时使用合理默认值或占位符，不为姓名、班级等小字段阻塞整体制作。默认课堂汇报为 12-15 页、6-8 分钟。
 
-交付前必须检查：
+### 2. 选择三套模板
 
-- 页数是否符合演讲时长和用户要求。
-- 所有页面是否无文字重叠、无裁切、无明显错位。
-- 图片是否清晰、不重复、与主题相关。
-- 标题层级是否统一，页脚/页码/校名是否一致。
-- 内容是否适合课堂演讲，而不是答辩式“研究背景、意义、难点”空模板。
-- 若生成演讲稿，逐页稿件总时长应匹配用户要求。
+先运行选择器：
 
-## 记忆来源
+```powershell
+python scripts/select_templates.py `
+  --brief "<主题、场景、受众、风格、时长的合并描述>" `
+  --slides <页数> `
+  --sections <章节数> `
+  --output "<工作区>\template-selection.json"
+```
 
-本 Skill 从用户提供的 `skill.pdf` 中提炼，重点保留其中关于合工大风格、课堂演讲版、资料补充、视觉排版和 Skill 化封装的可复用逻辑。
+选择器输出：
+
+- `visual_anchor`：统一全稿品牌、字体、色彩和页面框架。
+- `layout_donor`：提供章节页、流程、对比或复杂图文构图。
+- `accent_donor`：提供数据图、摄影裁切、季节氛围或强调页。
+- `slide_plan`：每张输出页对应的模板资产页和原始页码。
+
+必须查看三套模板的联系表：
+
+```text
+assets/previews/<template-id>.png
+```
+
+如果某套模板与内容明显冲突，使用 `--exclude id1,id2` 重选；用户明确指定风格时可使用 `--include id1`。
+
+### 3. 生成融合起始稿
+
+在 Windows 且安装 PowerPoint 时运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build_fusion_starter.ps1 `
+  -Plan "<工作区>\template-selection.json" `
+  -Output "<工作区>\fusion-starter.pptx"
+```
+
+此脚本按计划从三套模板复制真实、可编辑的源页面，并保留来源追踪。脚本只生成起始稿，不代表格式融合已经完成。
+
+没有 PowerPoint COM 时，读取 `template-selection.json`，用 Presentations 插件分别导入对应模板资产并复制计划中的源页；不得改成空白页重画。
+
+### 4. 写叙事骨架
+
+在编辑页面前写 `claim-spine.txt`：
+
+- 一句话主题。
+- 受众和演讲目标。
+- 每页的结论式标题。
+- 每页唯一的主要证据对象：图片、图表、表格、流程、时间线或对比。
+- 数据与图片来源。
+
+课堂汇报不机械套用“研究背景、研究意义、研究方法”。根据课程主题改写章节；只有论文或研究答辩才使用研究结构。
+
+### 5. 锁定融合设计系统
+
+从 `visual_anchor` 提取并写入 `design-system.txt`：
+
+- 页面比例和安全边距。
+- 校徽、校名、页眉、页脚、页码位置。
+- 标题、正文、数字和注释字体。
+- 主红、深色中性、浅色中性、辅助强调色。
+- 图片裁切、圆角、描边和阴影规则。
+- 图表、表格、流程图和章节页语法。
+
+将另外两套模板的颜色和字体映射到主模板语义色与字体，不直接保留供体模板的独立视觉系统。
+
+### 6. 编辑真实模板页
+
+将 `fusion-starter.pptx` 作为 template-following 源稿，用 Presentations 插件导入后编辑复制页：
+
+- 保留供体页面的构图骨架、对齐、留白和对象关系。
+- 替换全部示例文字、图片、图表和数据。
+- 删除供体模板重复的校徽、页眉、页脚和无关装饰。
+- 将非主模板页面的标题、正文、颜色、线条、按钮和页码统一到主模板。
+- 只在现有模板页无法承载内容时换用计划中的另一张源页，不从空白页仿造模板。
+
+若用户提供旧 PPT，将旧 PPT 作为内容来源，不让旧稿的混乱格式覆盖融合设计系统。
+
+### 7. 内容与素材
+
+- 联网补充资料时优先学校官网、政府和权威机构、课程指定资料、论文原文。
+- 不虚构数据、引文、获奖信息、校史事实或人物身份。
+- 同一图片只使用一次；相似校园图避免连续重复。
+- 校徽、校名和官方标识只使用模板内或用户提供的真实资产。
+- 图片做背景时添加足够遮罩，确保文字对比度。
+
+### 8. 全量 QA
+
+导出前必须：
+
+1. 渲染每一页和整稿联系表。
+2. 检查文字溢出、重叠、断行、裁切、低对比度和图片变形。
+3. 检查三套模板已经融合为一套字体、主色、校徽、标题和页脚规则。
+4. 检查没有模板示例文案、二维码、测试数据、陌生姓名或供体模板残留。
+5. 检查连续三页不使用完全相同的宏观构图。
+6. 检查所有图表与标题结论一致，数据有来源且单位统一。
+7. 检查演讲时长、页数和逐页讲稿相匹配。
+
+运行模板库验证：
+
+```powershell
+python scripts/validate_template_bank.py
+```
+
+## 讲稿
+
+用户要求讲稿时按页生成，不照读页面文字。7-8 分钟中文讲稿通常约 1200-1800 字，并与最终页码完全对应。
+
+## 交付
+
+交付：
+
+- 相关主题命名的最终 `.pptx`。
+- 用户要求时附逐页讲稿或视频脚本。
+- 简短说明页数、选中的三套模板、融合主模板和 QA 结果。
+
+不要把选择 JSON、预览图、临时脚本或联系表当作最终交付物，除非用户明确要求。
